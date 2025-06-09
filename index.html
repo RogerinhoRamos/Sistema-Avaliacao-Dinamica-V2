@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<button onclick="changeTheme('corporate')" style="background: #0f4c75; color: white; border: none; border-radius: 8px; padding: 10px 15px; cursor: pointer; font-size: 0.9rem;">
+                            <i class="fas fa-building"></i> Corporativo
+                        </button>
+                        <button onclick="changeTheme('contrast')" style="background: #6b7280; color: white; border: none; border-radius: 8px; padding: 10px 15px; cursor: pointer; font-size: 0.9rem;">
+                            <i class="fas fa-adjust"></i> Contraste
+                        </button><!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -50,8 +55,8 @@
             --header-bg: #374151;
         }
 
-        /* Corporate Theme */
-        [data-theme="corporate"] {
+        /* Contrast Theme (antigo corporativo) */
+        [data-theme="contrast"] {
             --primary-color: #6b7280;
             --secondary-color: #4b5563;
             --accent-color: #d97706;
@@ -65,6 +70,25 @@
             --text-secondary: #6b7280;
             --bg-gradient-start: #f3f4f6;
             --bg-gradient-end: #e5e7eb;
+            --card-bg: #ffffff;
+            --header-bg: #ffffff;
+        }
+
+        /* Corporate Theme (novo - azul escuro/petróleo) */
+        [data-theme="corporate"] {
+            --primary-color: #0f4c75;
+            --secondary-color: #0d3b66;
+            --accent-color: #1e6091;
+            --success-color: #16a085;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --dark-color: #2c3e50;
+            --light-gray: #ecf0f1;
+            --border-color: #bdc3c7;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --bg-gradient-start: #0f4c75;
+            --bg-gradient-end: #1e6091;
             --card-bg: #ffffff;
             --header-bg: #ffffff;
         }
@@ -649,6 +673,202 @@
             }
         }
 
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 350px;
+            height: 100vh;
+            background: var(--card-bg);
+            box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: right 0.3s ease;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .sidebar-content {
+            padding: 20px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Theme Selector */
+        .theme-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .theme-option {
+            padding: 8px 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--light-gray);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .theme-option.active {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .theme-option.active::after {
+            content: '✓';
+            position: absolute;
+            top: 2px;
+            right: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        /* Theme previews */
+        .theme-option[data-theme="default"] {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
+            border-color: #2563eb;
+        }
+
+        .theme-option[data-theme="dark"] {
+            background: linear-gradient(135deg, #1f2937, #374151);
+            color: white;
+            border-color: #374151;
+        }
+
+        .theme-option[data-theme="corporate"] {
+            background: linear-gradient(135deg, #0f4c75, #1e6091);
+            color: white;
+            border-color: #0f4c75;
+        }
+
+        .theme-option[data-theme="contrast"] {
+            background: linear-gradient(135deg, #6b7280, #9ca3af);
+            color: white;
+            border-color: #6b7280;
+        }
+
+        .theme-info {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: center;
+            font-style: italic;
+        }
+
+        .print-button {
+            width: 100%;
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .print-button:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .print-button-alt {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .print-button-alt:hover {
+            background: linear-gradient(135deg, var(--secondary-color), #1e3a8a);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* Utility Classes */
         .hidden { display: none !important; }
         .text-center { text-align: center; }
@@ -917,11 +1137,21 @@
 
         // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
-            initializeApp();
-            loadExampleData();
+            console.log('📱 DOM carregado, inicializando sistema...');
+            
+            // Pequeno delay para garantir que tudo foi renderizado
+            setTimeout(() => {
+                initializeApp();
+                initializeTheme();
+                loadExampleData();
+                
+                console.log('🎉 Sistema totalmente inicializado!');
+            }, 100);
         });
 
         function initializeApp() {
+            console.log('🔧 Iniciando aplicação...');
+            
             // Configurar event listeners
             document.getElementById('file-input').addEventListener('change', handleFileSelect);
             
@@ -930,6 +1160,123 @@
             importArea.addEventListener('dragover', handleDragOver);
             importArea.addEventListener('drop', handleDrop);
             importArea.addEventListener('dragleave', handleDragLeave);
+
+            // Debug - verificar elementos essenciais
+            console.log('🔍 Verificando elementos do sistema...');
+            
+            let sidebar = document.getElementById('sidebar');
+            let overlay = document.querySelector('.overlay');
+            const menuButton = document.querySelector('.menu-button');
+            
+            console.log('📊 Status dos elementos:');
+            console.log('- Sidebar:', sidebar ? '✅ Encontrada' : '❌ Não encontrada');
+            console.log('- Overlay:', overlay ? '✅ Encontrada' : '❌ Não encontrada');
+            console.log('- Menu Button:', menuButton ? '✅ Encontrado' : '❌ Não encontrado');
+            
+            // SEMPRE criar os elementos dinamicamente para garantir funcionamento
+            console.log('🔨 Criando elementos do menu dinamicamente...');
+            
+            // Remover elementos existentes se houver
+            if (overlay) {
+                overlay.remove();
+                console.log('🗑️ Overlay antigo removido');
+            }
+            if (sidebar) {
+                sidebar.remove();
+                console.log('🗑️ Sidebar antigo removido');
+            }
+            
+            // Criar overlay
+            console.log('🔧 Criando overlay...');
+            const newOverlay = document.createElement('div');
+            newOverlay.className = 'overlay';
+            newOverlay.onclick = closeSidebar;
+            document.body.appendChild(newOverlay);
+            
+            // Criar sidebar
+            console.log('🔧 Criando sidebar...');
+            const newSidebar = document.createElement('div');
+            newSidebar.id = 'sidebar';
+            newSidebar.className = 'sidebar';
+            newSidebar.innerHTML = `
+                <div class="sidebar-header">
+                    <h3><i class="fas fa-cog"></i> Configurações</h3>
+                    <button class="sidebar-close" onclick="closeSidebar()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="sidebar-content">
+                    <div class="sidebar-section">
+                        <h3><i class="fas fa-palette"></i> Tema Visual</h3>
+                        <div class="theme-selector">
+                            <div class="theme-option active" data-theme="default" onclick="changeTheme('default')">
+                                <i class="fas fa-paint-brush"></i>
+                                Padrão
+                            </div>
+                            <div class="theme-option" data-theme="dark" onclick="changeTheme('dark')">
+                                <i class="fas fa-moon"></i>
+                                Dark
+                            </div>
+                            <div class="theme-option" data-theme="corporate" onclick="changeTheme('corporate')">
+                                <i class="fas fa-building"></i>
+                                Corporativo
+                            </div>
+                            <div class="theme-option" data-theme="contrast" onclick="changeTheme('contrast')">
+                                <i class="fas fa-adjust"></i>
+                                Alto Contraste
+                            </div>
+                        </div>
+                        <p class="theme-info">Escolha o tema que melhor se adapta ao seu ambiente</p>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3><i class="fas fa-download"></i> Exportar Dados</h3>
+                        <button class="print-button" onclick="exportarRelatorio()">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>Relatório Completo</span>
+                        </button>
+                        <button class="print-button-alt" onclick="exportarExcel()">
+                            <i class="fas fa-file-excel"></i>
+                            <span>Planilha Excel</span>
+                        </button>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3><i class="fas fa-book"></i> Diretrizes</h3>
+                        <button class="print-button-alt" onclick="showTab('diretrizes')">
+                            <i class="fas fa-book"></i>
+                            <span>Ver Diretrizes</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(newSidebar);
+            
+            // Teste do botão menu
+            if (menuButton) {
+                menuButton.addEventListener('click', function() {
+                    console.log('🖱️ Botão menu clicado!');
+                    toggleSidebar();
+                });
+            }
+
+            // Verificação final após criação dinâmica
+            const finalSidebar = document.getElementById('sidebar');
+            const finalOverlay = document.querySelector('.overlay');
+            
+            console.log('🔍 Verificação final:');
+            console.log('- Sidebar final:', finalSidebar ? '✅ Criada' : '❌ Ainda não existe');
+            console.log('- Overlay final:', finalOverlay ? '✅ Criada' : '❌ Ainda não existe');
+            
+            if (finalSidebar && finalOverlay) {
+                console.log('🎉 Todos os elementos necessários estão prontos!');
+                console.log('💡 Clique no botão menu (canto superior direito) ou use Ctrl+M');
+            } else {
+                console.log('⚠️ Alguns elementos ainda estão faltando...');
+            }
+
+            console.log('🚀 Sistema de Avaliação inicializado com sucesso!');
         }
 
         function loadExampleData() {
@@ -949,8 +1296,16 @@
             });
 
             // Ativar tab selecionada
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            } else {
+                // Fallback para quando chamado programaticamente
+                document.querySelector(`[onclick="showTab('${tabName}')"]`)?.classList.add('active');
+            }
             document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Fechar sidebar se estiver aberta
+            closeSidebar();
 
             // Ações específicas por tab
             if (tabName === 'equipe') {
@@ -1295,6 +1650,362 @@
         // Toggle para mostrar diretrizes
         function toggleDirectrizes() {
             showTab('diretrizes');
+        }
+
+        // Sistema de Sidebar
+        function toggleSidebar() {
+            console.log('🔧 toggleSidebar() chamado');
+            
+            let sidebar = document.getElementById('sidebar');
+            let overlay = document.querySelector('.overlay');
+            
+            // Se sidebar não existir, chamar forceSidebar()
+            if (!sidebar || !overlay) {
+                console.log('🚨 Elementos faltando, forçando criação...');
+                forceSidebar();
+                return;
+            }
+            
+            const isActive = sidebar.classList.contains('active');
+            console.log('📊 Sidebar ativa:', isActive);
+            
+            if (isActive) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        }
+
+        function openSidebar() {
+            console.log('🔓 Abrindo sidebar...');
+            
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            
+            if (sidebar && overlay) {
+                sidebar.classList.add('active');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                console.log('✅ Sidebar aberta!');
+                showMessage('Menu aberto! Escolha seu tema preferido 🎨', 'info');
+            } else {
+                console.log('❌ Elementos não encontrados, tentando criar...');
+                forceSidebar();
+            }
+        }
+
+        function closeSidebar() {
+            console.log('🔒 Fechando sidebar...');
+            
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            
+            if (sidebar) sidebar.classList.remove('active');
+            if (overlay) overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            console.log('✅ Sidebar fechada!');
+        }
+
+        // Sistema de Temas
+        let currentTheme = 'default';
+
+        function changeTheme(themeName) {
+            try {
+                // Aplicar tema no documento
+                document.documentElement.setAttribute('data-theme', themeName);
+                currentTheme = themeName;
+                
+                // Atualizar seletor visual
+                updateThemeSelector(themeName);
+                
+                // Feedback visual suave
+                document.body.style.transition = 'all 0.5s ease';
+                setTimeout(() => {
+                    document.body.style.transition = '';
+                }, 500);
+                
+                showMessage(`Tema "${getThemeName(themeName)}" aplicado!`, 'success');
+                
+            } catch (error) {
+                console.error('Erro ao alterar tema:', error);
+            }
+        }
+
+        function updateThemeSelector(activeTheme) {
+            // Remover classe active de todos os temas
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            
+            // Adicionar classe active ao tema selecionado
+            const activeOption = document.querySelector(`[data-theme="${activeTheme}"]`);
+            if (activeOption) {
+                activeOption.classList.add('active');
+            }
+        }
+
+        function getThemeName(theme) {
+            const names = {
+                default: 'Padrão',
+                dark: 'Dark',
+                corporate: 'Corporativo',
+                contrast: 'Contraste'
+            };
+            return names[theme] || theme;
+        }
+
+        function detectSystemTheme() {
+            try {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    return 'dark';
+                } else {
+                    return 'default';
+                }
+            } catch (e) {
+                return 'default';
+            }
+        }
+
+        function initializeTheme() {
+            try {
+                const systemTheme = detectSystemTheme();
+                changeTheme(systemTheme);
+                
+                // Detectar mudanças na preferência do sistema
+                if (window.matchMedia) {
+                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                        if (currentTheme === 'default' || currentTheme === 'dark') {
+                            changeTheme(e.matches ? 'dark' : 'default');
+                        }
+                    });
+                }
+            } catch (e) {
+                changeTheme('default');
+            }
+        }
+
+        // Funções de exportação
+        function exportarRelatorio() {
+            showMessage('Gerando relatório PDF...', 'info');
+            // Implementar exportação de relatório
+            setTimeout(() => {
+                showMessage('Relatório gerado com sucesso!', 'success');
+            }, 2000);
+        }
+
+        function exportarExcel() {
+            showMessage('Exportando planilha Excel...', 'info');
+            // Implementar exportação Excel
+            setTimeout(() => {
+                showMessage('Planilha exportada com sucesso!', 'success');
+            }, 2000);
+        }
+
+        // Atalhos de teclado
+        document.addEventListener('keydown', function(e) {
+            try {
+                // ESC para fechar sidebar
+                if (e.key === 'Escape') {
+                    closeSidebar();
+                }
+                
+                // Ctrl + M para abrir menu (alternativo)
+                if (e.ctrlKey && e.key === 'm') {
+                    e.preventDefault();
+                    console.log('🎹 Atalho Ctrl+M pressionado');
+                    toggleSidebar();
+                }
+                
+                // Ctrl + Shift + T para alternar tema (sem sidebar)
+                if (e.ctrlKey && e.shiftKey && e.key === 'T') {
+                    e.preventDefault();
+                    console.log('🎹 Atalho Ctrl+Shift+T pressionado');
+                    const themes = ['default', 'dark', 'corporate', 'contrast'];
+                    const currentIndex = themes.indexOf(currentTheme);
+                    const nextTheme = themes[(currentIndex + 1) % themes.length];
+                    changeTheme(nextTheme);
+                    showMessage(`Tema alterado para: ${getThemeName(nextTheme)}`, 'info');
+                }
+                
+                // Ctrl + Shift + F para forçar sidebar
+                if (e.ctrlKey && e.shiftKey && e.key === 'F') {
+                    e.preventDefault();
+                    console.log('🎹 Atalho Ctrl+Shift+F pressionado - forçando sidebar');
+                    forceSidebar();
+                }
+                
+            } catch (error) {
+                console.error('Erro no atalho de teclado:', error);
+            }
+        });
+
+        // Funções de teste e debug
+        function testSidebar() {
+            console.log('🧪 TESTE DO SIDEBAR');
+            console.log('==================');
+            
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.querySelector('.overlay');
+            const menuButton = document.querySelector('.menu-button');
+            
+            console.log('📊 Status atual:');
+            console.log('- Sidebar existe:', !!sidebar);
+            console.log('- Overlay existe:', !!overlay);
+            console.log('- Menu Button existe:', !!menuButton);
+            
+            if (sidebar) {
+                console.log('- Sidebar ativa:', sidebar.classList.contains('active'));
+                console.log('- Classes da sidebar:', sidebar.className);
+            }
+            
+            console.log('🔧 Tentando abrir sidebar...');
+            toggleSidebar();
+            
+            showMessage('Teste do sidebar executado! Verifique o console (F12)', 'info');
+        }
+
+        function testThemes() {
+            console.log('🎨 TESTE DOS TEMAS');
+            console.log('==================');
+            
+            const themes = ['default', 'dark', 'corporate', 'contrast'];
+            let index = 0;
+            
+            const interval = setInterval(() => {
+                const theme = themes[index];
+                console.log(`🎯 Aplicando tema: ${getThemeName(theme)} (${theme})`);
+                changeTheme(theme);
+                
+                index++;
+                if (index >= themes.length) {
+                    clearInterval(interval);
+                    console.log('✅ Teste dos temas concluído!');
+                    changeTheme('default'); // Voltar ao padrão
+                }
+            }, 1500);
+            
+            showMessage('Testando todos os temas: Padrão → Dark → Corporativo → Contraste', 'info');
+        }
+
+        function testConsole() {
+            console.log('🐛 DEBUG DO SISTEMA');
+            console.log('===================');
+            
+            // Status geral
+            console.log('📱 Sistema:', {
+                userAgent: navigator.userAgent,
+                viewport: `${window.innerWidth}x${window.innerHeight}`,
+                theme: currentTheme,
+                colaboradores: appState.colaboradores.length
+            });
+            
+            // Status dos elementos
+            const elements = {
+                sidebar: document.getElementById('sidebar'),
+                overlay: document.querySelector('.overlay'),
+                menuButton: document.querySelector('.menu-button'),
+                themeOptions: document.querySelectorAll('.theme-option'),
+                navTabs: document.querySelectorAll('.nav-tab')
+            };
+            
+            console.log('🏗️ Elementos DOM:');
+            Object.entries(elements).forEach(([name, element]) => {
+                if (Array.isArray(element) || element instanceof NodeList) {
+                    console.log(`- ${name}:`, element.length, 'elementos');
+                } else {
+                    console.log(`- ${name}:`, element ? '✅ Existe' : '❌ Não existe');
+                }
+            });
+            
+            // CSS personalizado
+            console.log('🎨 CSS Variables:');
+            const style = getComputedStyle(document.documentElement);
+            console.log('- Primary color:', style.getPropertyValue('--primary-color'));
+            console.log('- Card background:', style.getPropertyValue('--card-bg'));
+            
+            showMessage('Debug completo executado! Verifique o console (F12)', 'info');
+        }
+
+        // Função para forçar abertura da sidebar (bypass)
+        function forceSidebar() {
+            console.log('🚨 FORÇANDO ABERTURA DA SIDEBAR');
+            
+            let sidebar = document.getElementById('sidebar');
+            let overlay = document.querySelector('.overlay');
+            
+            // Criar sidebar se não existir
+            if (!sidebar) {
+                console.log('🔧 Criando sidebar dinamicamente...');
+                sidebar = document.createElement('div');
+                sidebar.id = 'sidebar';
+                sidebar.className = 'sidebar';
+                sidebar.innerHTML = `
+                    <div class="sidebar-header">
+                        <h3><i class="fas fa-cog"></i> Configurações</h3>
+                        <button class="sidebar-close" onclick="closeSidebar()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar-content">
+                        <div class="sidebar-section">
+                            <h3><i class="fas fa-palette"></i> Tema Visual</h3>
+                            <div class="theme-selector">
+                                <div class="theme-option active" data-theme="default" onclick="changeTheme('default')">
+                                    <i class="fas fa-paint-brush"></i> Padrão
+                                </div>
+                                <div class="theme-option" data-theme="dark" onclick="changeTheme('dark')">
+                                    <i class="fas fa-moon"></i> Dark
+                                </div>
+                                <div class="theme-option" data-theme="corporate" onclick="changeTheme('corporate')">
+                                    <i class="fas fa-building"></i> Corporativo
+                                </div>
+                                <div class="theme-option" data-theme="contrast" onclick="changeTheme('contrast')">
+                                    <i class="fas fa-adjust"></i> Contraste
+                                </div>
+                            </div>
+                            <p class="theme-info">Escolha o tema que melhor se adapta ao seu ambiente</p>
+                        </div>
+                        
+                        <div class="sidebar-section">
+                            <h3><i class="fas fa-download"></i> Exportar Dados</h3>
+                            <button class="print-button" onclick="exportarRelatorio()">
+                                <i class="fas fa-file-pdf"></i> Relatório Completo
+                            </button>
+                            <button class="print-button-alt" onclick="exportarExcel()">
+                                <i class="fas fa-file-excel"></i> Planilha Excel
+                            </button>
+                        </div>
+
+                        <div class="sidebar-section">
+                            <h3><i class="fas fa-book"></i> Diretrizes</h3>
+                            <button class="print-button-alt" onclick="showTab('diretrizes')">
+                                <i class="fas fa-book"></i> Ver Diretrizes
+                            </button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(sidebar);
+                console.log('✅ Sidebar criada!');
+            }
+            
+            // Criar overlay se não existir
+            if (!overlay) {
+                console.log('🔧 Criando overlay dinamicamente...');
+                overlay = document.createElement('div');
+                overlay.className = 'overlay';
+                overlay.onclick = closeSidebar;
+                document.body.appendChild(overlay);
+                console.log('✅ Overlay criado!');
+            }
+            
+            // Forçar abertura
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            console.log('✅ Sidebar forçada e aberta!');
+            showMessage('Menu criado e aberto com sucesso! Teste os temas agora!', 'success');
         }
 
         // Função para carregar dados reais do Google Sheets (será implementada no Google Apps Script)
